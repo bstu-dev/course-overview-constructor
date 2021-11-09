@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  course-overview-constructor:
+    build: .
+    ports:
+      - "7080:3000"
