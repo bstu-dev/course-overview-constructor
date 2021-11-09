@@ -19,8 +19,8 @@ jobs:
           username: ${{ secrets.TARGET_HOST_SSH_USERNAME }}
           key: ${{ secrets.TARGET_HOST_SSH_PRIVATE_KEY }}
           script: |
-            cd /home/${{ secrets.TARGET_HOST_SSH_USERNAME }}/bstu-edx
-            && (git -C ${{ env.REPO_NAME }} pull || git clone https://${{ github.repository }} ${{ env.REPO_NAME }})
+            cd /home/${{ secrets.TARGET_HOST_SSH_USERNAME }}/bstu-edx \
+            && (git -C ${{ env.REPO_NAME }} pull || git clone https://${{ github.repository }} ${{ env.REPO_NAME }}) \
             && cd ${{ env.REPO_NAME }} && docker-compose build && docker-compose up -d
 
 
