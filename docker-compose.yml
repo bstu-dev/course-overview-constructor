@@ -6,4 +6,4 @@ services:
     ports:
       - "7080:3000"
     environment:
-      DANGEROUSLY_DISABLE_HOST_CHECK: true
+      - DANGEROUSLY_DISABLE_HOST_CHECK=true
