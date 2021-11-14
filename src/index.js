@@ -7,7 +7,7 @@ ReactDOM.render(
   document.getElementById('overview')
 );
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
   const searchString = new URLSearchParams(window.location.search);
 
   const course_locator = searchString.get('course_locator');
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   console.log(course_locator.replace(/\s/g, '+'));
 
-  const response = await fetch(
+  fetch(
     `http://bolid.bstu.ru:18010/settings/details/${course_locator.replace(
       /\s/g,
       '+'
@@ -29,9 +29,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         Accept: 'application/json',
       },
     }
-  );
-
-  console.log(response.text());
+  )
+    .then((data) => {
+      data.json().then((value) => {
+        console.log(value);
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
   const saveBtn = document.getElementById('save-btn');
 
