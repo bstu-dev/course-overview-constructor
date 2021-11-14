@@ -15,11 +15,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   document.cookie = `sessionid=${sessionid}`;
 
-  console.log(course_locator.replace(' ', '+'));
+  console.log(course_locator.replace(/\s/g, '+'));
 
   const response = await fetch(
     `http://bolid.bstu.ru:18010/settings/details/${course_locator.replace(
-      ' ',
+      /\s/g,
       '+'
     )}`,
     {
