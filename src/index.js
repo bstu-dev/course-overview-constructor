@@ -13,8 +13,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   const course_locator = searchString.get('course_locator');
   const sessionid = searchString.get('sessionid');
 
+  document.cookie = `sessionid=${sessionid}`;
+
   const response = await fetch(
-    `http://bolid.bstu.ru:18010/settings/details/${course_locator}&${sessionid}`,
+    `http://bolid.bstu.ru:18010/settings/details/${course_locator}`,
     {
       method: 'GET',
       credentials: 'include',
@@ -24,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   );
 
-  console.log(response.json());
+  console.log(response.text());
 
   const saveBtn = document.getElementById('save-btn');
 
