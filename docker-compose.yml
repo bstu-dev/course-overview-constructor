@@ -6,4 +6,4 @@ services:
     ports:
       - "7080:3000"
     environment:
-      HOST: bolid.bstu.ru
+      DANGEROUSLY_DISABLE_HOST_CHECK: true
