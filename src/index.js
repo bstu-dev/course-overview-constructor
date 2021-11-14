@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   })
     .then((data) => {
-      console.log(data.json(), 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+      console.log(data);
     })
     .catch((err) => {
       console.log(err);
