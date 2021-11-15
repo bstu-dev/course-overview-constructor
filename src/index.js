@@ -2,10 +2,7 @@ import ReactDOM from 'react-dom';
 import { renderToString } from 'react-dom/server';
 import CourseOverveiwConstructor from './components/CourseOverviewConstructor';
 
-ReactDOM.render(
-  <CourseOverveiwConstructor />,
-  document.getElementById('overview')
-);
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const searchString = new URLSearchParams(window.location.search);
@@ -32,7 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
   )
     .then((data) => {
       data.json().then((value) => {
-        console.log(value);
+        const textField = document.getElementById('example-overview');
+
+        textField.value = value.overview;
+
+        ReactDOM.render(
+          <CourseOverveiwConstructor overview={value.overview} />,
+          document.getElementById('overview')
+        );
       });
     })
     .catch((err) => {

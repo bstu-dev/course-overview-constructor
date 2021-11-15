@@ -22,72 +22,360 @@ function deepMerge(...args) {
   return target;
 }
 
-export default function CourseOverviewConstructor() {
-  const [courseAboutParagraphsCount, setCourseAboutParagraphsCount] =
-    useState(0);
-  const [courseAboutParagraphs, setCourseAboutParagraphs] = useState([]);
+function getOverviewObjectFromString(overviewHTML) {
+  const wrapper = document.createElement('div');
 
+  wrapper.insertAdjacentHTML('afterbegin', overviewHTML);
+
+  const overviewContent = {};
+
+  const language = wrapper.getElementsByClassName('course-language');
+
+  overviewContent.language = language[0].innerHTML;
+
+  const modules = wrapper.getElementsByClassName('modules');
+
+  overviewContent.modules = Number(modules[0]?.innerHTML || 0);
+
+  const lections = wrapper.getElementsByClassName('lections');
+
+  overviewContent.lections = Number(lections[0]?.innerHTML || 0);
+
+  const practicals = wrapper.getElementsByClassName('practicals');
+
+  overviewContent.practicals = Number(practicals[0]?.innerHTML || 0);
+
+  const labs = wrapper.getElementsByClassName('labs');
+
+  overviewContent.labs = Number(labs[0]?.innerHTML || 0);
+
+  const tests = wrapper.getElementsByClassName('tests');
+
+  overviewContent.tests = Number(tests[0]?.innerHTML || 0);
+
+  const aboutSection = Array.prototype.slice
+    .call(wrapper.getElementsByClassName('about')[0].getElementsByTagName('p'))
+    .filter(
+      (element) =>
+        String(element.innerHTML).trim() !== '' &&
+        String(element.innerHTML).trim() !== '\n'
+    )
+    .map((element, index) => {
+      return {
+        id: index,
+        text: element.innerHTML,
+      };
+    });
+
+  overviewContent.aboutSection = aboutSection;
+
+  const competenciesSection = Array.prototype.slice
+    .call(
+      wrapper
+        .getElementsByClassName('competencies')[0]
+        .getElementsByTagName('p')
+    )
+    .filter(
+      (element) =>
+        String(element.innerHTML).trim() !== '' &&
+        String(element.innerHTML).trim() !== '\n'
+    )
+    .map((element, index) => {
+      return {
+        id: index,
+        text: element.innerHTML,
+      };
+    });
+
+  overviewContent.competenciesSection = competenciesSection;
+
+  const resultsSection = Array.prototype.slice
+    .call(
+      wrapper.getElementsByClassName('results')[0].getElementsByTagName('p')
+    )
+    .filter(
+      (element) =>
+        String(element.innerHTML).trim() !== '' &&
+        String(element.innerHTML).trim() !== '\n'
+    )
+    .map((element, index) => {
+      return {
+        id: index,
+        text: element.innerHTML,
+      };
+    });
+
+  overviewContent.resultsSection = resultsSection;
+
+  const durationSection = Array.prototype.slice
+    .call(
+      wrapper.getElementsByClassName('duration')[0].getElementsByTagName('p')
+    )
+    .filter(
+      (element) =>
+        String(element.innerHTML).trim() !== '' &&
+        String(element.innerHTML).trim() !== '\n'
+    )
+    .map((element, index) => {
+      return {
+        id: index,
+        text: element.innerHTML,
+      };
+    });
+
+  overviewContent.durationSection = durationSection;
+
+  const complexitySection = Array.prototype.slice
+    .call(
+      wrapper.getElementsByClassName('complexity')[0].getElementsByTagName('p')
+    )
+    .filter(
+      (element) =>
+        String(element.innerHTML).trim() !== '' &&
+        String(element.innerHTML).trim() !== '\n'
+    )
+    .map((element, index) => {
+      return {
+        id: index,
+        text: element.innerHTML,
+      };
+    });
+
+  overviewContent.complexitySection = complexitySection;
+
+  const specialtiesSection = Array.prototype.slice
+    .call(
+      wrapper.getElementsByClassName('specialties')[0].getElementsByTagName('p')
+    )
+    .filter(
+      (element) =>
+        String(element.innerHTML).trim() !== '' &&
+        String(element.innerHTML).trim() !== '\n'
+    )
+    .map((element, index) => {
+      return {
+        id: index,
+        text: element.innerHTML,
+      };
+    });
+
+  overviewContent.specialtiesSection = specialtiesSection;
+
+  const requirementsSection = Array.prototype.slice
+    .call(
+      wrapper
+        .getElementsByClassName('requirements')[0]
+        .getElementsByTagName('p')
+    )
+    .filter(
+      (element) =>
+        String(element.innerHTML).trim() !== '' &&
+        String(element.innerHTML).trim() !== '\n'
+    )
+    .map((element, index) => {
+      return {
+        id: index,
+        text: element.innerHTML,
+      };
+    });
+
+  overviewContent.requirementsSection = requirementsSection;
+
+  const staffSection = Array.prototype.slice
+    .call(
+      wrapper
+        .getElementsByClassName('course-staff')[0]
+        .getElementsByClassName('teacher')
+    )
+    .map((element, index) => {
+      return {
+        id: index,
+        link: element
+          .getElementsByClassName('teacher-link')[0]
+          .getAttribute('src'),
+        fio: element.getElementsByClassName('teacher-fio')[0].innerHTML,
+        description: element.getElementsByClassName('teacher-description')[0]
+          .innerHTML,
+      };
+    });
+
+  overviewContent.staffSection = staffSection;
+
+  const programSection = Array.prototype.slice
+    .call(
+      wrapper
+        .getElementsByClassName('program')[0]
+        .getElementsByClassName('module-wrapper')
+    )
+    .map((element, index) => {
+      const lections = Array.prototype.slice
+        .call(
+          element.getElementsByClassName('lections-list')[0]
+            ? element
+                .getElementsByClassName('lections-list')[0]
+                .getElementsByTagName('li')
+            : []
+        )
+        .map((element, index) => {
+          return {
+            id: index,
+            text: element.innerHTML,
+          };
+        });
+
+      const practicals = Array.prototype.slice
+        .call(
+          element.getElementsByClassName('practicals-list')[0]
+            ? element
+                .getElementsByClassName('practicals-list')[0]
+                .getElementsByTagName('li')
+            : []
+        )
+        .map((element, index) => {
+          return {
+            id: index,
+            text: element.innerHTML,
+          };
+        });
+
+      const labs = Array.prototype.slice
+        .call(
+          element.getElementsByClassName('labs-list')[0]
+            ? element
+                .getElementsByClassName('labs-list')[0]
+                .getElementsByTagName('li')
+            : []
+        )
+        .map((element, index) => {
+          return {
+            id: index,
+            text: element.innerHTML,
+          };
+        });
+
+      const tests = Array.prototype.slice
+        .call(
+          element.getElementsByClassName('tests-list')[0]
+            ? element
+                .getElementsByClassName('tests-list')[0]
+                .getElementsByTagName('li')
+            : []
+        )
+        .map((element, index) => {
+          return {
+            id: index,
+            text: element.innerHTML,
+          };
+        });
+
+      return {
+        [`module${index + 1}`]: {
+          name: element.getElementsByClassName('module-name')[0].innerHTML,
+          lections,
+          lectionsCount: lections.length,
+          practicals,
+          practicalsCount: practicals.length,
+          labs,
+          labsCount: labs.length,
+          tests,
+          testsCount: tests.length,
+        },
+      };
+    })
+    .reduce((object, element) => ({ ...object, ...element }), {});
+
+  overviewContent.programSection = programSection;
+
+  return overviewContent;
+}
+
+export default function CourseOverviewConstructor(props) {
+  const overviewContent = getOverviewObjectFromString(props.overview || '');
+
+  const [courseAboutParagraphsCount, setCourseAboutParagraphsCount] = useState(
+    overviewContent.aboutSection.length
+  );
+  const [courseAboutParagraphs, setCourseAboutParagraphs] = useState(
+    overviewContent.aboutSection
+  );
   const [
     courseСompetenciesParagraphsCount,
     setCourseСompetenciesParagraphsCount,
-  ] = useState(0);
+  ] = useState(overviewContent.competenciesSection.length);
   const [courseСompetenciesParagraphs, setCourseСompetenciesParagraphs] =
-    useState([]);
-
+    useState(overviewContent.competenciesSection);
   const [courseResultsParagraphsCount, setCourseResultsParagraphsCount] =
-    useState(0);
-  const [courseResultsParagraphs, setCourseResultsParagraphs] = useState([]);
-
-  const [courseDurationParagraphsCount, setCourseDurationParagraphsCount] =
-    useState(0);
-  const [courseDurationParagraphs, setCourseDurationParagraphs] = useState([]);
-
-  const [courseComplexityParagraphsCount, setCourseComplexityParagraphsCount] =
-    useState(0);
-  const [courseComplexityParagraphs, setCourseComplexityParagraphs] = useState(
-    []
+    useState(overviewContent.resultsSection.length);
+  const [courseResultsParagraphs, setCourseResultsParagraphs] = useState(
+    overviewContent.resultsSection
   );
-
+  const [courseDurationParagraphsCount, setCourseDurationParagraphsCount] =
+    useState(overviewContent.durationSection.length);
+  const [courseDurationParagraphs, setCourseDurationParagraphs] = useState(
+    overviewContent.durationSection
+  );
+  const [courseComplexityParagraphsCount, setCourseComplexityParagraphsCount] =
+    useState(overviewContent.complexitySection.length);
+  const [courseComplexityParagraphs, setCourseComplexityParagraphs] = useState(
+    overviewContent.complexitySection
+  );
   const [
     courseSpecialtiesParagraphsCount,
     setCourseSpecialtiesParagraphsCount,
-  ] = useState(0);
+  ] = useState(overviewContent.specialtiesSection.length);
   const [courseSpecialtiesParagraphs, setCourseSpecialtiesParagraphs] =
-    useState([]);
-
+    useState(overviewContent.specialtiesSection);
   const [
     courseRequirementsParagraphsCount,
     setCourseRequirementsParagraphsCount,
-  ] = useState(0);
+  ] = useState(overviewContent.requirementsSection.length);
   const [courseRequirementsParagraphs, setCourseRequirementsParagraphs] =
-    useState([]);
+    useState(overviewContent.requirementsSection);
 
-  const [courseStaffCount, setCourseStaffCount] = useState(0);
-  const [courseStaff, setCourseStaff] = useState([]);
+  const [courseStaffCount, setCourseStaffCount] = useState(
+    overviewContent.staffSection.length
+  );
+  const [courseStaff, setCourseStaff] = useState(overviewContent.staffSection);
 
-  const [courseModulesCount, setCourseModulesCount] = useState(0);
-  const [courseLanguage, setCourseLanguage] = useState('RU');
-  const [courseLectionsCount, setCourseLectionsCount] = useState(0);
-  const [coursePracticalsCount, setCoursePracticalsCount] = useState(0);
-  const [courseLabsCount, setCourseLabsCount] = useState(0);
-  const [courseTestsCount, setCourseTestsCount] = useState(0);
+  const [courseModulesCount, setCourseModulesCount] = useState(
+    overviewContent.modules || 0
+  );
+  const [courseLanguage, setCourseLanguage] = useState(
+    overviewContent.language || 'RU'
+  );
+  const [courseLectionsCount, setCourseLectionsCount] = useState(
+    overviewContent.lections || 0
+  );
+  const [coursePracticalsCount, setCoursePracticalsCount] = useState(
+    overviewContent.practicals || 0
+  );
+  const [courseLabsCount, setCourseLabsCount] = useState(
+    overviewContent.labs || 0
+  );
+  const [courseTestsCount, setCourseTestsCount] = useState(
+    overviewContent.tests || 0
+  );
 
-  const [courseModules, setCourseModules] = useState({});
+  const [courseModules, setCourseModules] = useState(
+    overviewContent.programSection
+  );
 
   useEffect(() => {
     setCourseModules(
       Array.from({ length: courseModulesCount }, (_, index) => {
         return {
           [`module${index + 1}`]: {
-            name: '',
-            lections: [],
-            lectionsCount: 0,
-            practicals: [],
-            practicalsCount: 0,
-            labs: [],
-            labsCount: 0,
-            tests: [],
-            testsCount: 0,
+            name: courseModules[`module${index + 1}`].name || '',
+            lections: courseModules[`module${index + 1}`].lections || [],
+            lectionsCount:
+              courseModules[`module${index + 1}`].lectionsCount || 0,
+            practicals: courseModules[`module${index + 1}`].practicals || [],
+            practicalsCount:
+              courseModules[`module${index + 1}`].practicalsCount || 0,
+            labs: courseModules[`module${index + 1}`].labs || [],
+            labsCount: courseModules[`module${index + 1}`].labsCount || [],
+            tests: courseModules[`module${index + 1}`].tests || [],
+            testsCount: courseModules[`module${index + 1}`].testsCount || [],
           },
         };
       }).reduce((object, element) => ({ ...object, ...element }), {})
@@ -197,27 +485,27 @@ export default function CourseOverviewConstructor() {
             <div className="course-content-container">
               {courseModulesCount !== 0 ? (
                 <div className="course-content">
-                  <p>{courseModulesCount}</p> модуля
+                  <p class="modules">{courseModulesCount}</p> модуля
                 </div>
               ) : null}
               {courseLectionsCount !== 0 ? (
                 <div className="course-content">
-                  <p>{courseLectionsCount}</p> лекций
+                  <p class="lections">{courseLectionsCount}</p> лекций
                 </div>
               ) : null}
               {coursePracticalsCount !== 0 ? (
                 <div className="course-content">
-                  <p>{coursePracticalsCount}</p> практических
+                  <p class="practicals">{coursePracticalsCount}</p> практических
                 </div>
               ) : null}
               {coursePracticalsCount !== 0 ? (
                 <div className="course-content">
-                  <p>{courseLabsCount}</p> лабораторных
+                  <p class="labs">{courseLabsCount}</p> лабораторных
                 </div>
               ) : null}
               {courseTestsCount !== 0 ? (
                 <div className="course-content">
-                  <p>{courseTestsCount}</p> тестовых
+                  <p class="tests">{courseTestsCount}</p> тестовых
                 </div>
               ) : null}
             </div>
@@ -243,10 +531,12 @@ export default function CourseOverviewConstructor() {
                     <div className="module-body__content">
                       <div className="module-body__content-header">
                         <p className="name">Лекций</p>
-                        <p className="count">{value?.lectionsCount}</p>
+                        <p className="lections-count count">
+                          {value?.lectionsCount}
+                        </p>
                       </div>
                       <div className="module-body__content-body">
-                        <ol className="lections">
+                        <ol className="lections-list">
                           {value?.lections.map((lection) => {
                             return <li align="justify">${lection.text}</li>;
                           })}
@@ -260,10 +550,12 @@ export default function CourseOverviewConstructor() {
                     <div className="module-body__content">
                       <div className="module-body__content-header">
                         <p className="name">Практических</p>
-                        <p className="count">{value?.practicalsCount}</p>
+                        <p className="practicals-count count">
+                          {value?.practicalsCount}
+                        </p>
                       </div>
                       <div className="module-body__content-body">
-                        <ol className="practicals">
+                        <ol className="practicals-list">
                           {value?.practicals.map((practical) => {
                             return <li align="justify">${practical.text}</li>;
                           })}
@@ -277,10 +569,10 @@ export default function CourseOverviewConstructor() {
                     <div className="module-body__content">
                       <div className="module-body__content-header">
                         <p className="name">Лабораторных</p>
-                        <p className="count">{value?.labsCount}</p>
+                        <p className="labs-count count">{value?.labsCount}</p>
                       </div>
                       <div className="module-body__content-body">
-                        <ol className="practicals">
+                        <ol className="labs-list">
                           {value?.labs.map((lab) => {
                             return <li align="justify">${lab.text}</li>;
                           })}
@@ -294,10 +586,10 @@ export default function CourseOverviewConstructor() {
                     <div className="module-body__content">
                       <div className="module-body__content-header">
                         <p className="name">Тестов</p>
-                        <p className="count">{value?.testsCount}</p>
+                        <p className="tests-count count">{value?.testsCount}</p>
                       </div>
                       <div className="module-body__content-body">
-                        <ol className="practicals">
+                        <ol className="tests-list">
                           {value?.tests.map((test) => {
                             return <li align="justify">${test.text}</li>;
                           })}
@@ -383,12 +675,15 @@ export default function CourseOverviewConstructor() {
                   <article className="teacher">
                     <div className="teacher-image">
                       <img
+                        class="teacher-link"
                         src={courseStaff[index]?.link || '#'}
                         alt={courseStaff[index]?.fio || ''}
                       />
                     </div>
-                    <h3>{courseStaff[index]?.fio || ''}</h3>
-                    <p>{courseStaff[index]?.description || ''}</p>
+                    <h3 class="teacher-fio">{courseStaff[index]?.fio || ''}</h3>
+                    <p class="teacher-description">
+                      {courseStaff[index]?.description || ''}
+                    </p>
                   </article>
                 );
               })
@@ -542,13 +837,26 @@ export default function CourseOverviewConstructor() {
                           <input
                             type="text"
                             className="form-control"
+                            value={
+                              courseModules[`module${index + 1}`]?.lections[i]
+                                .text
+                            }
                             onChange={(event) => {
                               setCourseModules(
                                 deepMerge(courseModules, {
                                   [`module${index + 1}`]: {
-                                    lections: [
-                                      { id: i + 1, text: event.target.value },
-                                    ],
+                                    lections: courseModules[
+                                      `module${index + 1}`
+                                    ]?.lections.map(
+                                      (lection, lectionNumber) => {
+                                        return lectionNumber === i
+                                          ? {
+                                              id: i,
+                                              text: event.target.value,
+                                            }
+                                          : lection;
+                                      }
+                                    ),
                                   },
                                 })
                               );
@@ -600,13 +908,26 @@ export default function CourseOverviewConstructor() {
                           <input
                             type="text"
                             className="form-control"
+                            value={
+                              courseModules[`module${index + 1}`]?.practicals[i]
+                                .text
+                            }
                             onChange={(event) => {
                               setCourseModules(
                                 deepMerge(courseModules, {
                                   [`module${index + 1}`]: {
-                                    practicals: [
-                                      { id: i + 1, text: event.target.value },
-                                    ],
+                                    practicals: courseModules[
+                                      `module${index + 1}`
+                                    ]?.practicals.map(
+                                      (practice, practiceNumber) => {
+                                        return practiceNumber === i
+                                          ? {
+                                              id: i,
+                                              text: event.target.value,
+                                            }
+                                          : practice;
+                                      }
+                                    ),
                                   },
                                 })
                               );
@@ -655,13 +976,23 @@ export default function CourseOverviewConstructor() {
                           <input
                             type="text"
                             className="form-control"
+                            value={
+                              courseModules[`module${index + 1}`]?.labs[i].text
+                            }
                             onChange={(event) => {
                               setCourseModules(
                                 deepMerge(courseModules, {
                                   [`module${index + 1}`]: {
-                                    labs: [
-                                      { id: i + 1, text: event.target.value },
-                                    ],
+                                    labs: courseModules[
+                                      `module${index + 1}`
+                                    ]?.labs.map((lab, labNumber) => {
+                                      return labNumber === i
+                                        ? {
+                                            id: i,
+                                            text: event.target.value,
+                                          }
+                                        : lab;
+                                    }),
                                   },
                                 })
                               );
@@ -712,9 +1043,16 @@ export default function CourseOverviewConstructor() {
                               setCourseModules(
                                 deepMerge(courseModules, {
                                   [`module${index + 1}`]: {
-                                    tests: [
-                                      { id: i + 1, text: event.target.value },
-                                    ],
+                                    tests: courseModules[
+                                      `module${index + 1}`
+                                    ]?.tests.map((test, testNumber) => {
+                                      return testNumber === i
+                                        ? {
+                                            id: i,
+                                            text: event.target.value,
+                                          }
+                                        : test;
+                                    }),
                                   },
                                 })
                               );
