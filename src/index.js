@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.cookie = `sessionid=${sessionid}`;
 
-  console.log(course_locator.replace(/\s/g, '+'));
+  let courseData = {};
 
   fetch(
     `http://bolid.bstu.ru:18010/settings/details/${course_locator.replace(
@@ -31,6 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
       data.json().then((value) => {
         const textField = document.getElementById('example-overview');
 
+        courseData = value;
+
         textField.value = value.overview;
 
         ReactDOM.render(
@@ -48,7 +50,22 @@ document.addEventListener('DOMContentLoaded', () => {
   saveBtn.addEventListener('click', () => {
     const outputTextArea = document.getElementById('output-overview');
 
-    console.log(CourseOverveiwConstructor.getCourseOverviewHTML());
+    courseData.overview = CourseOverveiwConstructor.getCourseOverviewHTML();
+
+    fetch(
+      `http://bolid.bstu.ru:18010/settings/details/${course_locator.replace(
+        /\s/g,
+        '+'
+      )}`,
+      {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+        body: JSON.stringify(courseData),
+      }
+    );
 
     outputTextArea.value = renderToString(
       CourseOverveiwConstructor.getCourseOverviewHTML()
