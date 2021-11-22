@@ -405,17 +405,33 @@ export default function CourseOverviewConstructor(props) {
       Array.from({ length: courseModulesCount }, (_, index) => {
         return {
           [`module${index + 1}`]: {
-            name: courseModules[`module${index + 1}`].name || '',
-            lections: courseModules[`module${index + 1}`].lections || [],
-            lectionsCount:
-              courseModules[`module${index + 1}`].lectionsCount || 0,
-            practicals: courseModules[`module${index + 1}`].practicals || [],
-            practicalsCount:
-              courseModules[`module${index + 1}`].practicalsCount || 0,
-            labs: courseModules[`module${index + 1}`].labs || [],
-            labsCount: courseModules[`module${index + 1}`].labsCount || [],
-            tests: courseModules[`module${index + 1}`].tests || [],
-            testsCount: courseModules[`module${index + 1}`].testsCount || [],
+            name: courseModules[`module${index + 1}`]
+              ? courseModules[`module${index + 1}`].name
+              : '',
+            lections: courseModules[`module${index + 1}`]
+              ? courseModules[`module${index + 1}`].lections
+              : [],
+            lectionsCount: courseModules[`module${index + 1}`]
+              ? courseModules[`module${index + 1}`].lectionsCount
+              : 0,
+            practicals: courseModules[`module${index + 1}`]
+              ? courseModules[`module${index + 1}`].practicals
+              : [],
+            practicalsCount: courseModules[`module${index + 1}`]
+              ? courseModules[`module${index + 1}`].practicalsCount
+              : 0,
+            labs: courseModules[`module${index + 1}`]
+              ? courseModules[`module${index + 1}`].labs
+              : [],
+            labsCount: courseModules[`module${index + 1}`]
+              ? courseModules[`module${index + 1}`].labsCount
+              : [],
+            tests: courseModules[`module${index + 1}`]
+              ? courseModules[`module${index + 1}`].tests
+              : [],
+            testsCount: courseModules[`module${index + 1}`]
+              ? courseModules[`module${index + 1}`].testsCount
+              : [],
           },
         };
       }).reduce((object, element) => ({ ...object, ...element }), {})
