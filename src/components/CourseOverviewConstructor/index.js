@@ -732,7 +732,7 @@ export default function CourseOverviewConstructor(props) {
                   <article className="teacher">
                     <div className="teacher-image">
                       <img
-                        class="teacher-link"
+                        className="teacher-link"
                         src={courseStaff[index]?.link || '#'}
                         alt={courseStaff[index]?.fio || ''}
                       />
