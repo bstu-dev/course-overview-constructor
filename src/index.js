@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const course_locator = searchString.get('course_locator');
   const sessionid = searchString.get('sessionid');
+  const csrfToken = searchString.get('csrf_token');
 
   document.cookie = `sessionid=${sessionid}`;
 
@@ -59,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'POST',
         credentials: 'include',
         headers: {
+          'X-CSRF-TOKEN': csrfToken,
           'Content-Type': 'application/json;charset=utf-8',
         },
         body: JSON.stringify(courseData),

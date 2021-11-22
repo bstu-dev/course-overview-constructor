@@ -541,27 +541,28 @@ export default function CourseOverviewConstructor(props) {
             <div className="course-content-container">
               {courseModulesCount !== 0 ? (
                 <div className="course-content">
-                  <p class="modules">{courseModulesCount}</p> модуля
+                  <p className="modules">{courseModulesCount}</p> модуля
                 </div>
               ) : null}
               {courseLectionsCount !== 0 ? (
                 <div className="course-content">
-                  <p class="lections">{courseLectionsCount}</p> лекций
+                  <p className="lections">{courseLectionsCount}</p> лекций
                 </div>
               ) : null}
               {coursePracticalsCount !== 0 ? (
                 <div className="course-content">
-                  <p class="practicals">{coursePracticalsCount}</p> практических
+                  <p className="practicals">{coursePracticalsCount}</p>{' '}
+                  практических
                 </div>
               ) : null}
               {coursePracticalsCount !== 0 ? (
                 <div className="course-content">
-                  <p class="labs">{courseLabsCount}</p> лабораторных
+                  <p className="labs">{courseLabsCount}</p> лабораторных
                 </div>
               ) : null}
               {courseTestsCount !== 0 ? (
                 <div className="course-content">
-                  <p class="tests">{courseTestsCount}</p> тестовых
+                  <p className="tests">{courseTestsCount}</p> тестовых
                 </div>
               ) : null}
             </div>
@@ -736,8 +737,10 @@ export default function CourseOverviewConstructor(props) {
                         alt={courseStaff[index]?.fio || ''}
                       />
                     </div>
-                    <h3 class="teacher-fio">{courseStaff[index]?.fio || ''}</h3>
-                    <p class="teacher-description">
+                    <h3 className="teacher-fio">
+                      {courseStaff[index]?.fio || ''}
+                    </h3>
+                    <p className="teacher-description">
                       {courseStaff[index]?.description || ''}
                     </p>
                   </article>
