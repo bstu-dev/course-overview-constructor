@@ -2,14 +2,21 @@ import ReactDOM from 'react-dom';
 import { renderToString } from 'react-dom/server';
 import CourseOverveiwConstructor from './components/CourseOverviewConstructor';
 
+let today = new Date();
+let expiry = new Date(today.getTime() + 30 * 24 * 3600 * 1000);
+
+function setCookie(name, value) {
+  document.cookie =
+    name + '=' + String(value) + '; path=/; expires=' + expiry.toGMTString();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const searchString = new URLSearchParams(window.location.search);
 
   const course_locator = searchString.get('course_locator');
-  const sessionid = searchString.get('sessionid');
   const csrfToken = searchString.get('csrf_token');
 
-  document.cookie = `sessionid=${sessionid}`;
+  setCookie('sessionid', searchString.get('sessionid'));
 
   let courseData = {};
 
@@ -60,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'POST',
         credentials: 'include',
         headers: {
-          'X-CSRF-TOKEN': csrfToken,
+          'X-CSRFToken': csrfToken,
           'Content-Type': 'application/json;charset=utf-8',
         },
         body: JSON.stringify(courseData),
