@@ -54,7 +54,12 @@ function getOverviewObjectFromString(overviewHTML) {
   overviewContent.tests = Number(tests[0]?.innerHTML || 0);
 
   const aboutSection = Array.prototype.slice
-    .call(wrapper.getElementsByClassName('about')[0].getElementsByTagName('p'))
+    .call(
+      wrapper.getElementsByClassName('about') &&
+        wrapper.getElementsByClassName('about').length
+        ? wrapper.getElementsByClassName('about')[0].getElementsByTagName('p')
+        : []
+    )
     .filter(
       (element) =>
         String(element.innerHTML).trim() !== '' &&
@@ -71,9 +76,12 @@ function getOverviewObjectFromString(overviewHTML) {
 
   const competenciesSection = Array.prototype.slice
     .call(
-      wrapper
-        .getElementsByClassName('competencies')[0]
-        .getElementsByTagName('p')
+      wrapper.getElementsByClassName('competencies') &&
+        wrapper.getElementsByClassName('competencies').length
+        ? wrapper
+            .getElementsByClassName('competencies')[0]
+            .getElementsByTagName('p')
+        : []
     )
     .filter(
       (element) =>
@@ -91,7 +99,10 @@ function getOverviewObjectFromString(overviewHTML) {
 
   const resultsSection = Array.prototype.slice
     .call(
-      wrapper.getElementsByClassName('results')[0].getElementsByTagName('p')
+      wrapper.getElementsByClassName('results') &&
+        wrapper.getElementsByClassName('results').length
+        ? wrapper.getElementsByClassName('results')[0].getElementsByTagName('p')
+        : []
     )
     .filter(
       (element) =>
@@ -109,7 +120,12 @@ function getOverviewObjectFromString(overviewHTML) {
 
   const durationSection = Array.prototype.slice
     .call(
-      wrapper.getElementsByClassName('duration')[0].getElementsByTagName('p')
+      wrapper.getElementsByClassName('duration') &&
+        wrapper.getElementsByClassName('duration').length
+        ? wrapper
+            .getElementsByClassName('duration')[0]
+            .getElementsByTagName('p')
+        : []
     )
     .filter(
       (element) =>
@@ -127,7 +143,12 @@ function getOverviewObjectFromString(overviewHTML) {
 
   const complexitySection = Array.prototype.slice
     .call(
-      wrapper.getElementsByClassName('complexity')[0].getElementsByTagName('p')
+      wrapper.getElementsByClassName('complexity') &&
+        wrapper.getElementsByClassName('complexity').length
+        ? wrapper
+            .getElementsByClassName('complexity')[0]
+            .getElementsByTagName('p')
+        : []
     )
     .filter(
       (element) =>
@@ -145,7 +166,12 @@ function getOverviewObjectFromString(overviewHTML) {
 
   const specialtiesSection = Array.prototype.slice
     .call(
-      wrapper.getElementsByClassName('specialties')[0].getElementsByTagName('p')
+      wrapper.getElementsByClassName('specialties') &&
+        wrapper.getElementsByClassName('specialties').length
+        ? wrapper
+            .getElementsByClassName('specialties')[0]
+            .getElementsByTagName('p')
+        : []
     )
     .filter(
       (element) =>
@@ -163,9 +189,12 @@ function getOverviewObjectFromString(overviewHTML) {
 
   const requirementsSection = Array.prototype.slice
     .call(
-      wrapper
-        .getElementsByClassName('requirements')[0]
-        .getElementsByTagName('p')
+      wrapper.getElementsByClassName('requirements') &&
+        wrapper.getElementsByClassName('requirements').length
+        ? wrapper
+            .getElementsByClassName('requirements')[0]
+            .getElementsByTagName('p')
+        : []
     )
     .filter(
       (element) =>
@@ -183,19 +212,27 @@ function getOverviewObjectFromString(overviewHTML) {
 
   const staffSection = Array.prototype.slice
     .call(
-      wrapper
-        .getElementsByClassName('course-staff')[0]
-        .getElementsByClassName('teacher')
+      wrapper.getElementsByClassName('course-staff') &&
+        wrapper.getElementsByClassName('course-staff').length
+        ? wrapper
+            .getElementsByClassName('course-staff')[0]
+            .getElementsByClassName('teacher')
+        : []
     )
     .map((element, index) => {
       return {
         id: index,
-        link: element
-          .getElementsByClassName('teacher-link')[0]
-          .getAttribute('src'),
-        fio: element.getElementsByClassName('teacher-fio')[0].innerHTML,
+        link: element.getElementsByClassName('teacher-link')[0]
+          ? element
+              .getElementsByClassName('teacher-link')[0]
+              .getAttribute('src')
+          : '',
+        fio: element.getElementsByClassName('teacher-fio')[0]
+          ? element.getElementsByClassName('teacher-fio')[0].innerHTML
+          : '',
         description: element.getElementsByClassName('teacher-description')[0]
-          .innerHTML,
+          ? element.getElementsByClassName('teacher-description')[0].innerHTML
+          : '',
       };
     });
 
@@ -203,9 +240,12 @@ function getOverviewObjectFromString(overviewHTML) {
 
   const programSection = Array.prototype.slice
     .call(
-      wrapper
-        .getElementsByClassName('program')[0]
-        .getElementsByClassName('module-wrapper')
+      wrapper.getElementsByClassName('program') &&
+        wrapper.getElementsByClassName('program').length
+        ? wrapper
+            .getElementsByClassName('program')[0]
+            .getElementsByClassName('module-wrapper')
+        : []
     )
     .map((element, index) => {
       const lections = Array.prototype.slice

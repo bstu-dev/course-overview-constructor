@@ -2,8 +2,6 @@ import ReactDOM from 'react-dom';
 import { renderToString } from 'react-dom/server';
 import CourseOverveiwConstructor from './components/CourseOverviewConstructor';
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
   const searchString = new URLSearchParams(window.location.search);
 
