@@ -82,6 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
           alert('Данные не сохранены. Ошибка сохранения!');
         } else {
           alert('Данные сохранены успешно!');
+
+          const textField = document.getElementById('example-overview');
+
+          textField.value = renderToString(
+            CourseOverveiwConstructor.getCourseOverviewHTML()
+          );
         }
       })
       .catch(() => {
