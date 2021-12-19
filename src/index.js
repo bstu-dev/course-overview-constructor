@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
           'X-CSRFToken': csrfToken,
           'X-CSRF-TOKEN': csrfToken,
           'Content-Type': 'application/json;charset=utf-8',
+          Accept: 'application/json',
         },
         body: JSON.stringify(courseData),
       }
