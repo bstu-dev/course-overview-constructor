@@ -425,13 +425,13 @@ export default function CourseOverviewConstructor(props) {
               : [],
             labsCount: courseModules[`module${index + 1}`]
               ? courseModules[`module${index + 1}`].labsCount
-              : [],
+              : 0,
             tests: courseModules[`module${index + 1}`]
               ? courseModules[`module${index + 1}`].tests
               : [],
             testsCount: courseModules[`module${index + 1}`]
               ? courseModules[`module${index + 1}`].testsCount
-              : [],
+              : 0,
           },
         };
       }).reduce((object, element) => ({ ...object, ...element }), {})
@@ -873,6 +873,13 @@ export default function CourseOverviewConstructor(props) {
                         deepMerge(courseModules, {
                           [`module${index + 1}`]: {
                             lectionsCount: event.target.value,
+                            lections: Array.from(
+                              { length: event.target.value },
+                              (index) => ({
+                                id: index,
+                                text: '',
+                              })
+                            ),
                           },
                         })
                       );
@@ -943,6 +950,13 @@ export default function CourseOverviewConstructor(props) {
                       setCourseModules(
                         deepMerge(courseModules, {
                           [`module${index + 1}`]: {
+                            practicals: Array.from(
+                              { length: event.target.value },
+                              (index) => ({
+                                id: index,
+                                text: '',
+                              })
+                            ),
                             practicalsCount: event.target.value,
                           },
                         })
@@ -1012,6 +1026,13 @@ export default function CourseOverviewConstructor(props) {
                       setCourseModules(
                         deepMerge(courseModules, {
                           [`module${index + 1}`]: {
+                            labs: Array.from(
+                              { length: event.target.value },
+                              (index) => ({
+                                id: index,
+                                text: '',
+                              })
+                            ),
                             labsCount: event.target.value,
                           },
                         })
@@ -1075,6 +1096,13 @@ export default function CourseOverviewConstructor(props) {
                       setCourseModules(
                         deepMerge(courseModules, {
                           [`module${index + 1}`]: {
+                            tests: Array.from(
+                              { length: event.target.value },
+                              (index) => ({
+                                id: index,
+                                text: '',
+                              })
+                            ),
                             testsCount: event.target.value,
                           },
                         })

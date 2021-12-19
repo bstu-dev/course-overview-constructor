@@ -56,7 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
   saveBtn.addEventListener('click', () => {
     const outputTextArea = document.getElementById('output-overview');
 
-    courseData.overview = CourseOverveiwConstructor.getCourseOverviewHTML();
+    courseData.overview = renderToString(
+      CourseOverveiwConstructor.getCourseOverviewHTML()
+    );
 
     fetch(
       `http://bolid.bstu.ru:18010/settings/details/${course_locator.replace(
@@ -68,11 +70,22 @@ document.addEventListener('DOMContentLoaded', () => {
         credentials: 'include',
         headers: {
           'X-CSRFToken': csrfToken,
+          'X-CSRF-TOKEN': csrfToken,
           'Content-Type': 'application/json;charset=utf-8',
         },
         body: JSON.stringify(courseData),
       }
-    );
+    )
+      .then((data) => {
+        if (data.statusText.includes('Error')) {
+          alert('Данные не сохранены. Ошибка сохранения!');
+        } else {
+          alert('Данные сохранены успешно!');
+        }
+      })
+      .catch(() => {
+        alert('Данные не сохранены. Ошибка сохранения!');
+      });
 
     outputTextArea.value = renderToString(
       CourseOverveiwConstructor.getCourseOverviewHTML()
