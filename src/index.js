@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     courseData.overview = renderToString(
       CourseOverveiwConstructor.getCourseOverviewHTML()
-    );
+    ).replace(/<!-- -->/g, '');
 
     fetch(
       `http://bolid.bstu.ru:18010/settings/details/${course_locator.replace(
