@@ -534,7 +534,7 @@ export default function CourseOverviewConstructor(props) {
         <section className="information">
           <div className="item-wrapper">
             <div className="course-language-container">
-              <p className="course-language">${courseLanguage || 'RU'}</p>
+              <p className="course-language">{courseLanguage || 'RU'}</p>
             </div>
           </div>
           <div className="item-wrapper">
@@ -581,7 +581,7 @@ export default function CourseOverviewConstructor(props) {
               <div className="module-wrapper">
                 <div className="module-header">
                   <h3>Модуль №{index + 1}</h3>
-                  <h3 className="module-name">${value?.name || ''}</h3>
+                  <h3 className="module-name">{value?.name || ''}</h3>
                 </div>
                 {value?.lectionsCount !== 0 ? (
                   <div className="module-body">
@@ -595,7 +595,7 @@ export default function CourseOverviewConstructor(props) {
                       <div className="module-body__content-body">
                         <ol className="lections-list">
                           {value?.lections.map((lection) => {
-                            return <li align="justify">${lection.text}</li>;
+                            return <li align="justify">{lection.text}</li>;
                           })}
                         </ol>
                       </div>
@@ -614,7 +614,7 @@ export default function CourseOverviewConstructor(props) {
                       <div className="module-body__content-body">
                         <ol className="practicals-list">
                           {value?.practicals.map((practical) => {
-                            return <li align="justify">${practical.text}</li>;
+                            return <li align="justify">{practical.text}</li>;
                           })}
                         </ol>
                       </div>
@@ -631,7 +631,7 @@ export default function CourseOverviewConstructor(props) {
                       <div className="module-body__content-body">
                         <ol className="labs-list">
                           {value?.labs.map((lab) => {
-                            return <li align="justify">${lab.text}</li>;
+                            return <li align="justify">{lab.text}</li>;
                           })}
                         </ol>
                       </div>
@@ -648,7 +648,7 @@ export default function CourseOverviewConstructor(props) {
                       <div className="module-body__content-body">
                         <ol className="tests-list">
                           {value?.tests.map((test) => {
-                            return <li align="justify">${test.text}</li>;
+                            return <li align="justify">{test.text}</li>;
                           })}
                         </ol>
                       </div>
