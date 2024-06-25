@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let courseData = {};
 
   fetch(
-    `http://bolid.bstu.ru:18010/settings/details/${course_locator.replace(
+    `http://bolid.bstu.ru:9010/settings/details/${course_locator.replace(
       /\s/g,
       '+'
     )}`,
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ).replace(/<!-- -->/g, '');
 
     fetch(
-      `http://bolid.bstu.ru:18010/settings/details/${course_locator.replace(
+      `http://bolid.bstu.ru:9010/settings/details/${course_locator.replace(
         /\s/g,
         '+'
       )}`,
